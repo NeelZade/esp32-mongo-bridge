@@ -8,11 +8,12 @@ let dbCollection;
 
 // Connect in the background without blocking the server
 client.connect()
-  .then(() => {
-    dbCollection = client.db('agriculture_db').collection('sensor_data');
-    console.log("Successfully connected to MongoDB Atlas");
-  })
-  .catch(err => console.error("MongoDB connection error:", err));
+      .then(() => {
+        // Target AgriSenseDB instead of the old database
+        dbCollection = client.db('AgriSenseDB').collection('sensordatas'); 
+        console.log("Successfully connected to MongoDB Atlas");
+      })
+      .catch(err => console.error("MongoDB connection error:", err));
 
 app.post('/upload', async (req, res) => {
   // If DB isn't ready, tell the ESP32 gracefully instead of crashing
